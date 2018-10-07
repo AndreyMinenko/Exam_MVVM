@@ -1,0 +1,87 @@
+﻿<Window x:Class="WpfApplication1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApplication1"
+        mc:Ignorable="d"
+        Title="WPF Media Player" Height="300" Width="350"
+        Style="{DynamicResource WindowStyle}"
+        MinWidth="300" SizeToContent="WidthAndHeight">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ToolBar>
+            <Button Command="{Binding Get_Sound}" Style="{DynamicResource ButtonStyle}">
+                <Image Source="/WpfApplication1;component/Images/folder.png" Height="21" Width="21"/>
+            </Button>
+            <Separator />
+            <Button Command="{Binding Play_command}" Style="{DynamicResource ButtonStyle}">
+                <Image Source="/WpfApplication1;component/Images/Play.png" Height="21" Width="21"/>
+            </Button>
+            <Button Command="{Binding Pause_command}" Style="{DynamicResource ButtonStyle}">
+                <Image Source="/WpfApplication1;component/Images/Pause.png" Height="21" Width="21"/>
+            </Button>
+            <Button Command="{Binding Stop_command}">
+                <Image Source="/WpfApplication1;component/Images/Stop.png" Height="21" Width="21"/>
+            </Button>
+            <Button Command="{Binding Next}" Style="{DynamicResource ButtonStyle}"> Следующий
+            </Button>
+            <Separator />
+            <Button Command="{Binding Prev}" Style="{DynamicResource ButtonStyle}">Предыдущий
+            </Button>
+        </ToolBar>
+        <ListView x:Name="Sounds" 
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                ItemsSource="{Binding Sounds}"
+                SelectedIndex="{Binding Get_selected}"
+                SelectedItem="{Binding Get_selected}"
+                Style="{DynamicResource ListViewStyle}"
+                Height="213" Grid.Row="1" 
+                Width="342">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding Path=Play_command}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        <ListView.View>
+            <GridView>
+                <GridViewColumn
+                        Width="230"
+                        DisplayMemberBinding="{Binding Name}"
+                        Header="Название файла" />
+                <GridViewColumn
+                        Width="100"
+                        DisplayMemberBinding="{Binding Size}"
+                        Header="Размер, КБ" />
+            </GridView>
+        </ListView.View>
+        </ListView>
+        <ComboBox x:Name="comboBox"
+                  HorizontalAlignment="Left"
+                  Margin="0,213,0,0"
+                  Grid.Row="1"
+                  VerticalAlignment="Top"
+                  Width="120">
+            <ComboBoxItem IsSelected="True">
+                <Button
+                    Width="108"
+                    Command="{Binding Dark_theme}"
+                    Content="Dark"
+                    Style="{DynamicResource ButtonStyle}" />
+            </ComboBoxItem>
+            <ComboBoxItem>
+                <Button
+                    Width="108"
+                    Command="{Binding Light_theme}"
+                    Content="Light"
+                    Style="{DynamicResource ButtonStyle}" />
+            </ComboBoxItem>
+        </ComboBox>
+    </Grid>
+</Window>
